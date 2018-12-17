@@ -24,8 +24,6 @@ class CategoryController extends Controller
 
     public function postAdd(CategoryRequests $request)
     {
-
-
       // $data = $request->all();
       // $category = Category::create($data);
       // return view('backend.category.list',['data'=>$data]);
@@ -33,7 +31,7 @@ class CategoryController extends Controller
       $category->name = $request->name;
       $category->parent_id = $request->parent_id;
       $category->save();
-      return redirect()->route('category.getAdd')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);;
+      return redirect()->route('category.getList')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
     }
 
     /**
@@ -45,8 +43,12 @@ class CategoryController extends Controller
     public function getEdit($id)
     {
       $cat = Category::all();
-      $data = Category::findOrFail($id);
+      $data = Category::find($id);
       return view ('backend.category.edit',['cat'=>$cat,'data'=>$data]);
+
+      // $data = Category::find($id);
+      // $parent = Category::select('id','name','prarent_id')->get();
+      // return view('backend.category.edit',compact('parent','data'));
 
     }
 
@@ -58,11 +60,15 @@ class CategoryController extends Controller
      */
     public function postEdit(Request $request,$id)
     {
+      $this->validate($request,
+        ["name" => "required"],
+        ["name.required" => "Tên danh mục không được bỏ trống"]
+      );
       $category = Category::find($id);
       $category->name = $request->name;
       $category->parent_id = $request->parent_id;
       $category->save();
-      return redirect()->route('category.getList');
+      return redirect()->route('category.getList')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã sửa thành công !']);
     }
 
     /**

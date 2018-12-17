@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -12,10 +13,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getList()
     {
-        $users= User::get();
-        return view('users.index', compact('users'));
+        $users = DB::table('users')->where('status','0')->get();
+        return view('backend.user.list', compact('users'));
     }
 
     /**
@@ -23,9 +24,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getDelete($id)
     {
-        return view('users.create');
+       $users = User::find($id);
+       $users->delete($id);
+       return redirect()->route('user.getList');
     }
 
     /**
@@ -36,15 +39,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $userData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ];
-        $user= User::create($userData);
-        return redirect()->route('users.index');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -52,9 +49,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+
     }
 
     /**
@@ -63,9 +60,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
-        return view('users.edit',compact('user'));
+
     }
 
     /**
@@ -75,15 +72,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        $userData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ];
-        $user->update($userData);
-        return redirect()->route('users.index');
+
     }
 
     /**
@@ -92,9 +83,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy()
     {
-        $user->delete();
-        return redirect()->route('users.index');
+
     }
-}
+  }
