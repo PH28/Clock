@@ -15,8 +15,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','address','username'
+        'name', 'email', 'password','phone','address','roles','level'
     ];
+    protected $guarded = array();   // fix _token gây ra lỗi không create request->all()
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -24,6 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-         'remember_token',  'name', 'email', 'password','phone','address','username',
+         'remember_token', 'password',
     ];
+    public $timestamp = true;
 }
