@@ -8,7 +8,7 @@
 	      	<div class="col-lg-12">
 		      	 @include('backend.block.errors')
 			        @include('backend.block.flash_mag')
-              <form role="form"  class="form-horizontal" method="POST" action="{!!route('category.postEdit',$data->id)!!}">
+              <form role="form"  class="form-horizontal" method="POST" action="{!!route('category.update',$data->id)!!}">
 	 		          <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
 			            <div class="col-md-3">
 				           	<div class="panel-heading">
@@ -30,7 +30,7 @@
 									<label>Danh mục cha</label>
 									  <select class="form-control" name="parent_id">
 									  	<option value="0">-- ROOT --</option>
-                        <?php MenuMulti($cat,0,$str='---| ',$data['parent_id']); ?>
+                        <?php MenuMulti($cate,0,$str='---| ',$data['parent_id']); ?>
 								  	</select>
 							   </div>
 					     </form>

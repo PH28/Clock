@@ -9,7 +9,7 @@
       <div class="row">
 		     <div class="col-lg-12">
 			     	@include('backend.block.errors')
-<form role="form"  class="form-horizontal" method="POST" action="{{ route('category.getAdd') }}">
+<form role="form"  class="form-horizontal" method="POST" action="{{ route('category.create') }}">
   <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
 	  	<div class="col-md-3">
 		  	 <div class="panel-heading">

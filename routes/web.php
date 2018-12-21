@@ -20,55 +20,55 @@ Route::group(['prefix' => 'category'],function(){
 //     // 'as'=>'category.search',
 //     // 'uses'=>'CategoryController@getsearch']);
     Route::get('add',[
-      'as' => 'category.getAdd',
-      'uses' => 'CategoryController@getAdd']);
+      'as' => 'category.create',
+      'uses' => 'CategoryController@create']);
     Route::post('add',[
-      'as' => 'category.postAdd',
-      'uses' => 'CategoryController@postAdd']);
+      'as' => 'category.store',
+      'uses' => 'CategoryController@store']);
     Route::get('list',[
-      'as' => 'category.getList',
-      'uses' => 'CategoryController@getList']);
-    Route::get('delete/{id}',[
-      'as' => 'category.getDelete',
-      'uses' => 'CategoryController@getDelete']);
+      'as' => 'category.index',
+      'uses' => 'CategoryController@index']);
+    Route::get('destroy/{id}',[
+      'as' => 'category.destroy',
+      'uses' => 'CategoryController@destroy']);
     Route::get('edit/{id}',[
-      'as' => 'category.getEdit ',
-      'uses' => 'CategoryController@getEdit']);
+      'as' => 'category.edit',
+      'uses' => 'CategoryController@edit']);
     Route::post('edit/{id}',[
-      'as' => 'category.postEdit',
-      'uses' => 'CategoryController@postEdit']);
+      'as' => 'category.update',
+      'uses' => 'CategoryController@update']);
       });
 Route::group(['prefix' => 'product'],function(){
 //     // Route::post('search',[
 //     // 'as'=>'category.search',
 //     // 'uses'=>'CategoryController@getsearch']);
     Route::get('add',[
-      'as' => 'product.getAdd',
-      'uses' => 'ProductController@getAdd']);
+      'as' => 'product.create',
+      'uses' => 'ProductController@create']);
     Route::post('add',[
-      'as' => 'product.postAdd',
-      'uses' => 'ProductController@postAdd']);
+      'as' => 'product.store',
+      'uses' => 'ProductController@store']);
     Route::get('list',[
-      'as' => 'product.getList',
-      'uses' => 'ProductController@getList']);
+      'as' => 'product.index',
+      'uses' => 'ProductController@index']);
     Route::get('delete/{id}',[
-      'as' => 'product.getDelete',
-      'uses' => 'ProductController@getDelete']);
+      'as' => 'product.destroy',
+      'uses' => 'ProductController@destroy']);
     Route::get('edit/{id}',[
-      'as' => 'product.getEdit ',
-      'uses' => 'ProductController@getEdit']);
+      'as' => 'product.edit ',
+      'uses' => 'ProductController@edit']);
     Route::post('edit/{id}',[
-      'as' => 'product.postEdit',
-      'uses' => 'ProductController@postEdit']);
+      'as' => 'product.update',
+      'uses' => 'ProductController@update']);
   });
 
   Route::group(['prefix' => 'user'],function(){
       Route::get('list',[
-        'as' => 'user.getList',
-        'uses' => 'UserController@getList']);
+        'as' => 'user.index',
+        'uses' => 'UserController@index']);
       Route::get('delete/{id}',[
-        'as' => 'user.getDelete',
-        'uses' => 'UserController@getDelete']);  
+        'as' => 'user.destroy',
+        'uses' => 'UserController@destroy']);
         });
 
 Route::group(['prefix' => 'admin'],function(){
@@ -76,23 +76,23 @@ Route::group(['prefix' => 'admin'],function(){
 //     // 'as'=>'category.search',
 //     // 'uses'=>'CategoryController@getsearch']);
     Route::get('add',[
-      'as' => 'admin.getAdd',
-      'uses' => 'AdminController@getAdd']);
+      'as' => 'admin.create',
+      'uses' => 'AdminController@create']);
     Route::post('add',[
-      'as' => 'admin.postAdd',
-      'uses' => 'AdminController@postAdd']);
+      'as' => 'admin.store',
+      'uses' => 'AdminController@store']);
     Route::get('list',[
-      'as' => 'admin.getList',
-      'uses' => 'AdminController@getList']);
+      'as' => 'admin.index',
+      'uses' => 'AdminController@index']);
     Route::get('delete/{id}',[
-      'as' => 'admin.getDelete',
-      'uses' => 'AdminController@getDelete']);
+      'as' => 'admin.destroy',
+      'uses' => 'AdminController@destroy']);
     Route::get('edit/{id}',[
-      'as' => 'admin.getEdit ',
-      'uses' => 'AdminController@getEdit']);
+      'as' => 'admin.edit ',
+      'uses' => 'AdminController@edit']);
     Route::post('edit/{id}',[
-      'as' => 'admin.postEdit',
-      'uses' => 'AdminController@postEdit']);
+      'as' => 'admin.update',
+      'uses' => 'AdminController@update']);
   });
 
 

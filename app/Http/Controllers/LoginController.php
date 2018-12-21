@@ -18,7 +18,7 @@ class LoginController extends Controller
   }
   public function postLogin(LoginRequests $request)
   {
-    if(Auth::attempt(['email'=> $request->email,'password'=> $request->password,'status'=>1]))
+    if(Auth::attempt(['email'=> $request->email,'password'=> $request->password,'roles'=>1]))
     {
      return view('backend.index');
     }else{

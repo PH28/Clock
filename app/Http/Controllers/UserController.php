@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use DB;
 
 class UserController extends Controller
 {
@@ -13,9 +12,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getList()
+// List danh khách hàng
+    public function index()
     {
-        $users = DB::table('users')->where('status','0')->get();
+        $users = User::where('roles','0')->get();
         return view('backend.user.list', compact('users'));
     }
 
@@ -24,11 +24,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getDelete($id)
+// xóa user
+    public function destroy($id)
     {
        $users = User::find($id);
-       $users->delete($id);
-       return redirect()->route('user.getList');
+       $users->delete();
+       return redirect()->route('user.index');
     }
 
     /**
@@ -83,8 +84,5 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
-    {
-
-    }
+    
   }

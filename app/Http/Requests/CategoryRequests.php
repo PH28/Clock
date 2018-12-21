@@ -25,15 +25,15 @@ class CategoryRequests extends FormRequest
     public function rules()
     {
         return [
-        	'name' => 'required|unique:category,name',
+        	'name' => 'required|unique:category,id,'. $this->id
 
         ];
     }
 
     public function messages(){
   		return [
-  			'name.required' => 'Vui lòng nhập tên danh mục',
-  			'name.unique' => 'Tên danh mục đã tồn tại'
+  		 	 'name.required' => 'Vui lòng nhập tên danh mục',
+  			 'name.unique' => 'Tên danh mục đã tồn tại'
   		];
   	}
 }

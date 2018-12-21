@@ -6,132 +6,91 @@ use App\Product;
 use App\Category;
 use DB;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequests;
 use App\Image;
-// use Illuminate\Http\File;
 use File;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getList()
+
+// vào trang list các sản phẩm
+    public function index()
     {
-      $data = Product::select('id','name','price','cat_id','made','image')->paginate(5);
+      $data = DB::table('products')->paginate(5);
       foreach ($data as $datas) {
-        $category = DB::table('category')
-                     ->where('id',$datas->cat_id)
+        $category = DB::table('category')          // gọi ra tên danh mục
+                     ->where('id',$datas->cate_id)
                      ->first();
-      }
+       }
       return view("backend.product.list",compact('data','category'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAdd()
+// Vào trang thêm sản phẩm
+    public function create()
     {
-          $data = Category::all();
-          return view('backend.product.add',compact('data'));
+      $data = Category::all();
+        return view('backend.product.add',compact('data'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function postAdd(Request $request)
+// Xử lí sản phẩm thêm vào
+    public function store(ProductRequests $request)
     {
-      $product = new Product;
-      $product->name = $request->name;
-      $product->price = $request->price;
-      $product->made = $request->made;
-      $product->content = $request->content;
-      $product->cat_id = $request->cat_id;
-      $product->description =$request->description;
-      $product->status = '1';
-      if($request->hasFile('image')){
-        $file = $request->file('image');
-        $name = $file->getClientOriginalName();
-        $image = str_random(4)."_".$name;
-        while(file_exists('images/'.$image)){
-          $image = str_random(4)."_".$name;
-        }
-        $file->move('images/',$image);
-        $product->image = $image;
-      }else{
-        $product->image = "";
-      }
-        $product->save();
-     return redirect()->route('product.getAdd')->with(['thongbao' =>'Bạn đã thêm sản phẩm thành công']);
+     $product = $request->all();
+     if($request->hasFile('image')){
+       $file = $request->file('image');
+       $name = $file->getClientOriginalName();
+       $image = str_random(4)."_".$name;
+       while(file_exists('images/'.$image)){
+         $image = str_random(4)."_".$name;
+       }
+       $file->move('images/',$image);
+       $product['image'] = $image;
+     }else{
+       $product->image = "";
+     }
+      $store = Product::create($product);
+      return redirect()->route('product.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm sản phẩm  thành công !']);
      }
 
-    //  $product = $request->all();         // ko mở được file hình ảnh khi list
-    //  $post = Product::create($product);
-    //  $post->fill(['status' => '1']);
-    //  if($request->hasFile('image')){
-    //    $file = $request->file('image');
-    //    $name = $file->getClientOriginalName();
-    //    $image = str_random(4)."_".$name;
-    //    while(file_exists('images/'.$image)){
-    //      $image = str_random(4)."_".$name;
-    //    }
-    //    $file->move('images/',$image);
-    //    $post->image = $image;
-    //  }else{
-    //    $post->image = "";
-    //  }
-    //  return redirect()->route('product.getAdd')->with(['thongbao' =>'Bạn đã thêm sản phẩm thành công']);
-    // }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ProductController  $productController
-     * @return \Illuminate\Http\Response
-     */
-    // public function show()
-    // {
-    //     //
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProductController  $productController
-     * @return \Illuminate\Http\Response
-     */
-     public function getEdit($id)
+//  Vào trang sửa sản phẩm
+     public function edit($id)
      {
-      $cat = Category::all();
-      $product = Product::find($id);
-      return view('backend.product.edit',compact('cat','product'));
+       $cate = Category::all();
+       $product = Product::find($id);
+       return view('backend.product.edit',compact('cate','product'));
      }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ProductController  $productController
-     * @return \Illuminate\Http\Response
-     */
-    public function postEdit(Request $request,$id)
+// Xử lí sửa sản phẩm
+    public function update(Request $request,$id)
     {
-      $product = Product::find($id);
-      $img_current = 'images/'.$request->img_current;
-      $product->name = $request->name;
-      $product->price = $request->price;
-      $product->made = $request->made;
-      $product->content = $request->content;
-      $product->cat_id = $request->cat_id;
-      $product->description =$request->description;
-      $product->status = $request->status;
+      $this->validate($request,
+      [
+          'name' => 'required',
+          'price'=>'required',
+          'sale'=>'required',
+          'made'=>'required',
+          'description'=>'required',
+          'content' => 'required',
+      ],
+      [
+        'name.required' => 'Vui lòng nhập tên sản phẩm',
+        'price.required'=>'Vui lòng nhập giá cho sản phẩm',
+        'sale.required'=>'Vui lòng nhập 0 nếu sản phẩm không có khuyến mãi',
+        'made.required'=>'Vui lòng nhập thương hiệu cho sản phẩm',
+        'content.required'=>'Vui lòng nhập nội dung chi tiết cho sản phẩm',
+        'description.required'=>'Vui lòng nhập nội dung cho sản phẩm',
+      ]);
+       $product = Product::find($id);
+       $img_current = 'images/'.$request->img_current;
+       $product->cate_id = $request->cate_id;
+       $product->name = $request->name;
+       $product->price = $request->price;
+       $product->sale = $request->sale;
+       $product->made = $request->made;
+       $product->description = $request->description;
+       $product->content = $request->content;
+       $product->status = $request->status;
+     // update ảnh
       if($request->hasFile('fileimages')){
         $file = $request->file('fileimages');
         $name = $file->getClientOriginalName();
@@ -142,22 +101,16 @@ class ProductController extends Controller
         $file->move('images/',$image);
         File::delete($img_current);
         $product->image = $image;
-      }
-        $product->save();
-       return redirect()->route('product.getList');
+       }
+       $product->save();
+      return redirect()->route('product.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã sửa phẩm  thành công !']);
      }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ProductController  $productController
-     * @return \Illuminate\Http\Response
-     */
-    public function getDelete($id)
+// Xóa sản phẩm
+    public function destroy($id)
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route('product.getList');
+        return redirect()->route('product.index');
     }
 }

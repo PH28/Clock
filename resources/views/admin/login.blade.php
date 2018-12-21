@@ -32,11 +32,11 @@
       <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
         <div class="form-group has-feedback">
           <input type="email" class="form-control" name="email" placeholder="email">
-          <span class="fa fa-envelope form-control-feedback">{{$errors->first('email')}}</span>
+          <p class="alert text-danger"><span class="fa fa-envelope form-control-feedback">{{$errors->first('email')}}</span></p>
         </div>
         <div class="form-group has-feedback">
           <input type="password" class="form-control" name="password" placeholder="password">
-          <span class="fa fa-lock form-control-feedback">{{$errors->first('password')}}</span>
+          <p class="alert text-danger"><span class="fa fa-lock form-control-feedback">{{$errors->first('password')}}</span></p>
         </div>
         <div class="row">
           <div class="col-8">

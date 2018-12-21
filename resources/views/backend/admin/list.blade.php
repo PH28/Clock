@@ -2,15 +2,16 @@
 @section('controller','Admin')
 @section('action','Danh sách')
 @section('content')
-@include('backend.block.flash_mag')
+
 
 <section class="content">
 <div class="container-fluid">
 <div class="row">
   <div class="col-12">
+    @include('backend.block.flash_mag')
     <div class="col-md-3">
       <div class="panel-heading" >
-       <a href="{!! route('admin.getAdd') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
+       <a href="{!! route('admin.create') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
      </div>
    </div>
   <br>

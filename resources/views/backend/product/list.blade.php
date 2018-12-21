@@ -2,12 +2,12 @@
 @section('controller','Sản phẩm')
 @section('action','Danh sách')
 @section('content')
-@include('backend.block.flash_mag')
 
 <section class="content">
   <div class="container-fluid">
     <div class="row">
        <div class="col-12">
+         @include('backend.block.flash_mag')
           <div class="col-md-3">
              <div class="panel-heading" >
                <a href="{!! url('product/add') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>

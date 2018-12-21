@@ -1,7 +1,6 @@
 
 <!-- jQuery -->
 <script src="{!! url('backend/plugins/jquery/jquery.min.js') !!}"></script>
-<!-- <script type="text/javascript" src="{{ url('backend/ckeditor/ckeditor.js') }}"></script> -->
 <!-- <script src="{!! url('js/myscript.js') !!}"></script> -->
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -13,7 +12,7 @@ $.widget.bridge('uibutton', $.ui.button)
 <script type="text/javascript">
 $(document).ready(function()
 {
-	$(".alert").delay(3000).slideUp();
+	$(".alert").delay(5000).slideUp();
 });
 </script>
 <!-- Bootstrap 4 -->

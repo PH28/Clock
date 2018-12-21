@@ -17,7 +17,6 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->integer('prarent_id');
-          	$table->integer('status');
             $table->timestamps();
         });
     }

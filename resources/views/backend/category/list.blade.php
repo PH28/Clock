@@ -47,13 +47,13 @@
              {!! "--" !!}
              @else
              <?php
-                 $pdata = DB::table('tbl_category')->where('id',$datas->parent_id)->first();
+                 $pdata = DB::table('category')->where('id',$datas->parent_id)->first();
                  echo $pdata->name;
              ?>
              @endif
              <td >
                <a href="{!! url('category/edit',$datas->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
-               <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('category/delete',$datas->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
+               <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('category/destroy',$datas->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
              </td>
            </tr>
         @endforeach

@@ -54,7 +54,7 @@
             <td>{{$user->created_at}}</td>
             <td>
               @if($user->status == 0)
-              <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! route('user.getDelete',$user->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
+              <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('user/delete',$user->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
               @endif
             </td>
           </tr>

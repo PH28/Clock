@@ -16,28 +16,33 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form role="form" class="form-horizontal" method="POST" action="{!!route('admin.postEdit',$data->id)!!}" enctype="multipart/form-data">
+          <form role="form" class="form-horizontal" method="POST" action="{!!route('admin.update',$data->id)!!}" enctype="multipart/form-data">
           <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
             <div class="card-body">
               <div class="form-group">
                 <label >Họ và tên :</label>
                 <input type="text" class="form-control" name="name" placeholder="Nhập họ tên" value="{{ $data->name}}">
+                <p class="alert text-danger"> {{$errors->first('name')}}</p>
               </div>
               <div class="form-group">
                 <label>Email :</label>
                 <input type="text" class="form-control" name="email" placeholder="Nhập email" value="{{$data->email}}" required readonly>
+                <p class="alert text-danger"> {{$errors->first('email')}}</p>
               </div>
               <div class="form-group">
                 <label>Số điện thoại :</label>
                 <input type="text" class="form-control" name="phone" placeholder="Nhập số điện thoại" value="{{$data->phone}}">
+                <p class="alert text-danger"> {{$errors->first('phone')}}</p>
               </div>
               <div class="form-group">
                 <label>Mật khẩu :</label>
                 <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" value="{{old('password')}}">
+                <p class="alert text-danger"> {{$errors->first('password')}}</p>
               </div>
               <div class="form-group">
                 <label> Xác nhận lại mật khẩu :</label>
                 <input type="password" class="form-control" name="password_confirmation" placeholder="Nhập lại mật khẩu" value="{{old('password_confirmation')}}">
+                <p class="alert text-danger"> {{$errors->first('password_confirmation')}}</p>
               </div>
               <div class="form-group">
                 <label> Chọn quyền truy cập :</label>
@@ -50,15 +55,15 @@
               <!-- radio -->
               <div class="form-group">
                 <div class="form-check">
-                  <input class="form-check-input" name="status" type="radio" value="1">
+                  <input class="form-check-input" name="roles" type="radio" value="1">
                   <label class="form-check-label">Chọn nếu là Admin or Supper Admin</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" name="status" type="radio" value="0">
+                  <input class="form-check-input" name="roles" type="radio" value="0">
                   <label class="form-check-label">Chọn nếu là Người dùng</label>
+                  <p class="alert text-danger"> {{$errors->first('roles')}}</p>
                 </div>
               </div>
-
              </div>
             <!-- /.card-body -->
             <div class="card-footer">

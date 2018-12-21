@@ -9,108 +9,56 @@ use App\Http\Requests\CategoryRequests;
 class CategoryController extends Controller
 {
 
-    public function getList()
+// Vào trang index
+    public function index()
     {
         $data = Category::all();
-        return view('backend.category.list',['data'=>$data]);
+         return view('backend.category.list',['data'=>$data]);
     }
 
-
-    public function getAdd()
+// Vào trang thêm danh mục, create
+    public function create()
     {
-      $data = Category::all();
-      return view('backend.category.add',['data'=>$data]);
+        $data = Category::all();
+         return view('backend.category.add',['data'=>$data]);
     }
 
-    public function postAdd(CategoryRequests $request)
+// Xử lí thêm danh mục
+    public function store(CategoryRequests $request)
     {
-      // $data = $request->all();
-      // $category = Category::create($data);
-      // return view('backend.category.list',['data'=>$data]);
-      $category = new Category;
-      $category->name = $request->name;
-      $category->parent_id = $request->parent_id;
-      $category->save();
-      return redirect()->route('category.getList')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
+      $category = Category::create($request->all());
+       return redirect()->route('category.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function getEdit($id)
-    {
-      $cat = Category::all();
-      $data = Category::find($id);
-      return view ('backend.category.edit',['cat'=>$cat,'data'=>$data]);
+// Vào trang sửa danh mục
+     public function edit($id)
+     {
+       $cate = Category::all();
+       $data = Category::find($id);
+        return view ('backend.category.edit',compact('data','cate'));
+     }
 
-      // $data = Category::find($id);
-      // $parent = Category::select('id','name','prarent_id')->get();
-      // return view('backend.category.edit',compact('parent','data'));
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function postEdit(Request $request,$id)
-    {
-      $this->validate($request,
-        ["name" => "required"],
-        ["name.required" => "Tên danh mục không được bỏ trống"]
-      );
+// Xử lí sửa danh mục
+     public function update(CategoryRequests $request,$id)
+     {
       $category = Category::find($id);
-      $category->name = $request->name;
-      $category->parent_id = $request->parent_id;
-      $category->save();
-      return redirect()->route('category.getList')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã sửa thành công !']);
-    }
+      $update = $request->all();
+      $category->update($update);
+      return redirect()->route('category.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã sửa thành công !']);
+     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function getDelete($id)
-    {
+// Xóa danh mục
+     public function destroy($id)
+     {
       $category = Category::find($id);
       // $parent = Category::where('prarent_id',$id)->count();
       // $products = Product::where('cate_id', $cate->id)->count();
       // dd($products);
       // if($parent == 0 && $products == 0){
-        $category->delete($id);
-        return redirect()->route('category.getList');
+      $category->delete();
+       return redirect()->route('category.index')->with(['flash_level'=>'result_msg','flash_massage'=>'Bạn đã xóa thanh công!']);
       // }else{
-      //   return redirect()->route('category.getList')->with(['flash_level' => 'danger','flash_message' =>'Vui lòng xóa hết danh mục con trước và kiểm tra danh mục có sản phẩm đang tồn tại']);
+      //   return redirect()->route('category.index')->with(['flash_level' => 'danger','flash_message' =>'Vui lòng xóa hết danh mục con trước và kiểm tra danh mục có sản phẩm đang tồn tại']);
       // }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Categories $categories)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Categories $categories)
-    {
-        //
-    }
-}
+     }
+ }
