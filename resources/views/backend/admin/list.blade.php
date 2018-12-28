@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.index')
 @section('controller','Admin')
 @section('action','Danh sách')
 @section('content')
@@ -9,9 +9,9 @@
 <div class="row">
   <div class="col-12">
     @include('backend.block.flash_mag')
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="panel-heading" >
-       <a href="{!! route('admin.create') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
+       <a href="{!! route('backend.admin.create') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm Admin</button></a>
      </div>
    </div>
   <br>
@@ -54,15 +54,16 @@
               @elseif($admins->level == 1)
                 <span style="color:#27ae60;">Admin</span>
               @else
-                <span style="color:#27ae60;">User</span>
+                <span style="color:#27ae60;">Người bán hàng</span>
               @endif
             </td>
             <td>
               @if ($admins->level == 10)
-                 <a href="{!! url('admin/edit',$admins->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
+                 <a href="{!! url('backend/admin/edit',$admins->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
+                 <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('backend/admin/delete',$admins->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
               @else
-                  <a href="{!! url('admin/edit',$admins->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
-                  <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('admin/delete',$admins->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
+                  <a href="{!! url('backend/admin/edit',$admins->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
+                  <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('backend/admin/delete',$admins->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
               @endif
              </td>
           </tr>

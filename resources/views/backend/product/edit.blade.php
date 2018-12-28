@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.index')
 @section('controller','Sản phẩm')
 @section('action','Sửa')
 @section('content')
@@ -15,33 +15,33 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-        <form role="form" class="form-horizontal" method="POST" action="{!!route('product.update',$product->id)!!}" enctype="multipart/form-data">
+        <form role="form" class="form-horizontal" method="POST" action="{!!route('backend.product.update',$product->id)!!}" enctype="multipart/form-data">
           <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
             <div class="card-body">
               <div class="form-group">
-                <label>Thể loại</label>
+                <label>Thể loại <span class="text-danger">*</span> </label>
                 <select class="form-control" name="cate_id">
-                 <?php MenuMulti($cate,0,$str='--|-- ',$product['parent_id']); ?>
+                 {{ MenuMulti($cate,0,$str=' ',$product['parent_id']) }}
                 </select>
               </div>
               <div class="form-group">
-                <label for="exampleInputPassword1">Tên sản phẩm</label>
+                <label for="exampleInputPassword1"> Tên sản phẩm<span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" name="name" value="{{$product->name}}">
                 <p class="alert text-danger"> {{$errors->first('name')}} </p>
               </div>
               <div class="form-group">
-                <label>Giá</label>
+                <label>Giá <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" name="price"  value="{{$product->price}}">
                 <p class="alert text-danger"> {{$errors->first('price')}}</p>
               </div>
               <div class="form-group">
-                <label>Giá sale</label>
+                <label>Giá sale <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" name="sale" value="{{$product->sale}}">
                 <p class="alert text-danger"> {{$errors->first('sale')}} </p>
               </div>
 
               <div class="form-group">
-                <label>Thương hiệu</label>
+                <label>Thương hiệu <span class="text-danger">*</span> </label>
                 <input type="text" class="form-control" name="made"  value="{{$product->made}}">
                 <p class="alert text-danger"> {{$errors->first('made')}} </p>
               </div>
@@ -59,7 +59,7 @@
               </div>
 
               <div class="form-group">
-                <label class="col-md-2">Hình ảnh</label>
+                <label class="col-md-2">Hình ảnh <span class="text-danger">*</span> </label>
                   <div class="col-md-10">
                     <input type="file" name="fileimages"><br/> <br>
                       <img src="{!! asset('images/'.$product['image']) !!}" width="120">
@@ -68,10 +68,10 @@
                      </div>
               <!-- input states -->
               <div class="form-group has-success">
-                <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Trạng thái sản phẩm</label>
+                <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i>Trạng thái sản phẩm <span class="text-danger">*</span> </label>
                 <select class="form-control" name="status">
-                  <option value="1" @if($product->status==1) selected @endif>-- Còn hàng --</option>
-                  <option value="0" @if($product->status==0) selected @endif>-- Tạm hết --</option>
+                  <option value="1" @if($product->status==1) selected @endif>== Còn hàng ==</option>
+                  <option value="0" @if($product->status==0) selected @endif>== Tạm hết ==</option>
                 </select>
               </div>
 

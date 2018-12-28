@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.index')
 @section('controller','Sản phẩm')
 @section('action','Danh sách')
 @section('content')
@@ -10,7 +10,7 @@
          @include('backend.block.flash_mag')
           <div class="col-md-3">
              <div class="panel-heading" >
-               <a href="{!! url('product/add') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
+               <a href="{!! url('backend/product/add') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm sản phẩm</button></a>
              </div>
             </div>
         <br>
@@ -42,19 +42,19 @@
             </tr>
           </thead>
           <tbody>
-      @foreach ($data as $datas)
+      @foreach ($datas as $data)
             <tr>
-              <td>{{$datas->id}}</td>
+              <td>{{$data->id}}</td>
               <td>{{$category->name}}</td>
-              <td>{{$datas->name}}</td>
-              <td>{{$datas->price}}</td>
-              <td>{{$datas->made}}</td>
+              <td>{{$data->name}}</td>
+              <td>{{$data->price}}</td>
+              <td>{{$data->made}}</td>
               <td>
-                  <img src="{!! asset('images/'.$datas->image) !!}" width="40" alt="{!! $datas->name !!}">
+                  <img src="{!! asset('images/'.$data->image) !!}" width="40" alt="{!! $data->name !!}">
               </td>
                <td align="center">
-                    <a href="{!! url('product/edit',$datas->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
-                    <a href="{!! url('product/delete',$datas->id) !!}" onclick="return confirm('Bạn có chắc chắn muốn xóa!')"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
+                    <a href="{!! url('backend/product/edit',$data->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
+                    <a href="{!! url('backend/product/delete',$data->id) !!}" onclick="return confirm('Bạn có chắc chắn muốn xóa!')"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
               </td>
             </tr>
       @endforeach
@@ -63,7 +63,7 @@
   <div class="pull-right">
       <div class="card-footer clearfix">
           <ul class="pagination pagination-sm m-0 float-right">
-              <li> {!! $data->render()!!}</li>
+              <li> {!! $datas->render()!!}</li>
            </ul>
           </div>
          </div>
