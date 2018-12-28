@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.index')
 @section('controller','Danh mục')
 @section('action','Danh sách')
 @section('content')
@@ -10,7 +10,7 @@
           <div class="col-md-12">
              <div class="col-md-3">
                 <div class="panel-heading" >
-                   <a href="{!! url('category/add') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
+                   <a href="{!! url('backend/category/add') !!}"><button type="submit" class="btn btn-block btn-outline-success btn-lg">Thêm danh mục</button></a>
                 </div>
              </div>
   <br>
@@ -32,28 +32,26 @@
          <thead>
           <tr>
              <th>ID</th>
+             <th>Thể loại</th>
              <th>Danh mục cha</th>
-             <th>Danh mục con</th>
              <th>Thao tác</th>
           </tr>
         </thead>
      <tbody>
-       @foreach($data as $datas)
+       @foreach($datas as $data)
          <tr class="success">
-           <td>{!! $datas->id !!}</td>
-           <td>{!! $datas->name !!}</td>
-           <td>
-             @if($datas->parent_id == 0)
-             {!! "--" !!}
-             @else
-             <?php
-                 $pdata = DB::table('category')->where('id',$datas->parent_id)->first();
-                 echo $pdata->name;
-             ?>
-             @endif
-             <td >
-               <a href="{!! url('category/edit',$datas->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
-               <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('category/destroy',$datas->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
+             <td>{!! $data->id !!}</td>
+             <td>{!! $data->name !!}</td>
+             <td><a href="">
+               @if($data->parent_id == 0)
+               {!! "==" !!}
+               @else
+               {{$category->name}}
+               @endif
+              </a></td>
+             <td>
+               <a href="{!! url('backend/category/edit',$data->id) !!}"><i class="material-icons" style="font-size:25px;color:blue">border_color</i></a>
+               <a onclick="return confirm('Bạn có chắc chắn muốn xóa!')" href="{!! url('backend/category/destroy',$data->id) !!}"><i class="fa fa-times-circle" style="font-size:30px;color:red"></i></a>
              </td>
            </tr>
         @endforeach

@@ -67,7 +67,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-            <a href="#" class="nav-link active">
+            <a href="{!! route('backend.index') !!}" class="nav-link active">
               <i class="nav-icon fa fa-dashboard"></i>
               <p>
               Trang chủ
@@ -75,7 +75,7 @@
               </p>
             </a>
           <li class="nav-item">
-            <a href="{!!url('category/list')!!}" class="nav-link">
+            <a href="{!!url('backend/category/list')!!}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Danh mục
@@ -83,7 +83,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!! url('product/list') !!}" class="nav-link">
+            <a href="{!! url('backend/product/list') !!}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Sản Phẩm
@@ -99,7 +99,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!! url('user/list') !!}" class="nav-link">
+            <a href="{!! url('backend/user/list') !!}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Khách Hàng
@@ -107,7 +107,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{!! url('admin/list') !!}" class="nav-link">
+            <a href="{!! url('backend/admin/list') !!}" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                 Admin

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminRequests;
+use App\Http\Requests\AdminRequestsStore;
+use App\Http\Requests\AdminRequestsUpdate;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -24,12 +25,17 @@ class AdminController extends Controller
     }
 
 // xử lí admin thêm vào
-    public function store(AdminRequests $request)
+    public function store(AdminRequestsStore $request)
     {
        $data = $request->all();
-       $data['password'] = Hash::make($data['password']);
+       // $data['password'] = Hash::make($data['password']);
+       $user_login = Auth::user()->level;   // admin đang đăng nhập.
+       if($user_login == 10) {
        $admin = User::create($data);
-       return redirect()->route('admin.create')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
+       return redirect()->route('backend.admin.create')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
+     }else {
+       return redirect()->route('backend.admin.create')->with(['flash_level1'=>'result_msg','error_massage'=>'Bạn không được quyền thêm admin!']);
+     }
     }
 
 // Vào trang sửa admin
@@ -40,26 +46,32 @@ class AdminController extends Controller
     }
 
 // Xử lí thông tin sửa admin
-    public function update(AdminRequests $request,$id)
+    public function update(AdminRequestsUpdate $request,$id)
     {
            $data = User::find($id);
            $update = $request->all();
-           $update['password'] = Hash::make('password');
-           $data->update($update);
-        return redirect()->route('admin.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm thành công !']);
+           // $update['password'] = Hash::make('password');
+           $user_login = Auth::user()->level;   // admin đang đăng nhập.
+           if  (($user_login != 10 && $data['level'] == 1) || ($data['level'] == 10 && $user_login != 10)) {
+             return redirect()->route('backend.admin.index')->with(['flash_level1'=>'result_msg','error_massage'=>'Bạn không được quyền sửa thông tin !']);
+           }else {
+             $data->update($update);
+             return redirect()->route('backend.admin.index')->with(['flash_level'=>'result_msg','flash_massage'=>'Đã sửa thành công']);
+           }
+
     }
 
 // Xóa admin
     public function destroy($id)
     {
-        $user_login = Auth::user()->level;
+        $user_login = Auth::user()->level;   // admin đang đăng nhập.
         // dd($user_login);
-        $data = User::find($id);
+        $data = User::find($id);   // admin cần xóa.
         if ($data['level'] == 10 || ($user_login != 10 && $data['level'] == 1)) {
-          return redirect()->route('admin.index')->with(['flash_level1'=>'result_msg','error_massage'=>'Bạn không được phép xóa thành viên này']);
+          return redirect()->route('backend.admin.index')->with(['flash_level1'=>'result_msg','error_massage'=>'Bạn không được phép xóa thành viên này']);
       }else {
           $data->delete();
-          return redirect()->route('admin.index')->with(['flash_level'=>'result_msg','flash_massage'=>'Bạn đã xóa thành viên thành công']);
+          return redirect()->route('backend.admin.index')->with(['flash_level'=>'result_msg','flash_massage'=>'Đã xóa thành công']);
       }
     }
 }

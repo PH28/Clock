@@ -11,91 +11,136 @@
 |
 */
 //
-Route::get('/', function () {
-    return view('backend.index');
-});
-//
+
+// Route::get('/', function () {
+//     return view('backend.index');
+// });
+  Route::get('/', [
+    'as' =>'index',
+    'uses' => 'PageController@index']);
+
+  Route::get('/admin/login',['as'=> 'admin.getLogin','uses'=>'LoginController@getLogin']);
+  Route::post('/admin/login',['as'=> 'admin.postLogin','uses'=>'LoginController@postLogin']);
+  Route::get('/admin/logout',['as'=>'admin.logout','uses'=>'LoginController@logout']);
+
+  Route::get('/backend/home',[
+    'as' => 'backend.index',
+    'middleware' => 'checklogin',
+    'uses' => 'HomeController@index']);
+
+Route::group(['prefix' =>'backend','middleware' => 'checklogin'],function(){
+  Route::group(['prefix' => 'admin'],function(){
+  //     // Route::post('search',[
+  //     // 'as'=>'category.search',
+  //     // 'uses'=>'CategoryController@getsearch']);
+      Route::get('add',[
+        'as' => 'backend.admin.create',
+        'uses' => 'AdminController@create']);
+      Route::post('add',[
+        'as' => 'backend.admin.store',
+        'uses' => 'AdminController@store']);
+      Route::get('list',[
+        'as' => 'backend.admin.index',
+        'uses' => 'AdminController@index']);
+      Route::get('delete/{id}',[
+        'as' => 'backend.admin.destroy',
+        'uses' => 'AdminController@destroy']);
+      Route::get('edit/{id}',[
+        'as' => 'backend.admin.edit ',
+        'uses' => 'AdminController@edit']);
+      Route::post('edit/{id}',[
+        'as' => 'backend.admin.update',
+        'uses' => 'AdminController@update']);
+    });
+
+
 Route::group(['prefix' => 'category'],function(){
 //     // Route::post('search',[
 //     // 'as'=>'category.search',
 //     // 'uses'=>'CategoryController@getsearch']);
     Route::get('add',[
-      'as' => 'category.create',
+      'as' => 'backend.category.create',
       'uses' => 'CategoryController@create']);
     Route::post('add',[
-      'as' => 'category.store',
+      'as' => 'backend.category.store',
       'uses' => 'CategoryController@store']);
     Route::get('list',[
-      'as' => 'category.index',
+      'as' => 'backend.category.index',
       'uses' => 'CategoryController@index']);
     Route::get('destroy/{id}',[
-      'as' => 'category.destroy',
+      'as' => 'backend.category.destroy',
       'uses' => 'CategoryController@destroy']);
     Route::get('edit/{id}',[
-      'as' => 'category.edit',
+      'as' => 'backend.category.edit',
       'uses' => 'CategoryController@edit']);
     Route::post('edit/{id}',[
-      'as' => 'category.update',
+      'as' => 'backend.category.update',
       'uses' => 'CategoryController@update']);
       });
 Route::group(['prefix' => 'product'],function(){
 //     // Route::post('search',[
-//     // 'as'=>'category.search',
+//     // 'as'=>'backend.category.search',
 //     // 'uses'=>'CategoryController@getsearch']);
     Route::get('add',[
-      'as' => 'product.create',
+      'as' => 'backend.product.create',
       'uses' => 'ProductController@create']);
     Route::post('add',[
-      'as' => 'product.store',
+      'as' => 'backend.product.store',
       'uses' => 'ProductController@store']);
     Route::get('list',[
-      'as' => 'product.index',
+      'as' => 'backend.product.index',
       'uses' => 'ProductController@index']);
     Route::get('delete/{id}',[
-      'as' => 'product.destroy',
+      'as' => 'backend.product.destroy',
       'uses' => 'ProductController@destroy']);
     Route::get('edit/{id}',[
-      'as' => 'product.edit ',
+      'as' => 'backend.product.edit ',
       'uses' => 'ProductController@edit']);
     Route::post('edit/{id}',[
-      'as' => 'product.update',
+      'as' => 'backend.product.update',
       'uses' => 'ProductController@update']);
   });
-
   Route::group(['prefix' => 'user'],function(){
       Route::get('list',[
-        'as' => 'user.index',
+        'as' => 'backend.user.index',
         'uses' => 'UserController@index']);
       Route::get('delete/{id}',[
-        'as' => 'user.destroy',
+        'as' => 'backend.user.destroy',
         'uses' => 'UserController@destroy']);
         });
+});
 
-Route::group(['prefix' => 'admin'],function(){
-//     // Route::post('search',[
-//     // 'as'=>'category.search',
-//     // 'uses'=>'CategoryController@getsearch']);
-    Route::get('add',[
-      'as' => 'admin.create',
-      'uses' => 'AdminController@create']);
-    Route::post('add',[
-      'as' => 'admin.store',
-      'uses' => 'AdminController@store']);
-    Route::get('list',[
-      'as' => 'admin.index',
-      'uses' => 'AdminController@index']);
-    Route::get('delete/{id}',[
-      'as' => 'admin.destroy',
-      'uses' => 'AdminController@destroy']);
-    Route::get('edit/{id}',[
-      'as' => 'admin.edit ',
-      'uses' => 'AdminController@edit']);
-    Route::post('edit/{id}',[
-      'as' => 'admin.update',
-      'uses' => 'AdminController@update']);
-  });
+// Quản lí thông tin người dùng
 
-
-  Route::get('/admin/login',['as'=> 'admin.getLogin','uses'=>'LoginController@getLogin']);
-  Route::post('/admin/login',['as'=> 'admin.postLogin','uses'=>'LoginController@postLogin']);
-  Route::get('/admin/logout',['as'=>'admin.logout','uses'=>'LoginController@logout']);
+  Route::get('register',[                    // đăng ký người dùng
+    'as'=> 'register',
+    'uses'=> 'LoginController@create',
+  ]);
+  Route::post('register',[
+    'as'=> 'register',
+    'uses'=> 'LoginController@store',
+  ]);
+  Route::get('login',[                    // đăng nhập người dùng
+    'as'=> 'login',
+    'uses'=> 'LoginController@getUser',
+  ]);
+  Route::post('login',[
+    'as'=> 'login',
+    'uses'=> 'LoginController@postUser',
+  ]);
+  Route::get('logout',[                      // đăng xuất người dùng
+    'as'=> 'logout',
+    'uses'=> 'LoginController@logoutUser',
+  ]);
+  Route::get('productdetail/{id}',[          // vào trang xem chi tiết sản phẩm
+    'as' => 'productdetail',
+    'uses'=> 'PageController@productdetail'
+  ]);
+  Route::get('cart',[                        // vào trang xem giỏ hàng
+    'as' => 'cart',
+    'uses'=> 'PageController@cart'
+  ]);
+  Route::get('category',[                        // vào trang hiển thị tất cả sản phẩm
+    'as' => 'category',
+    'uses'=> 'PageController@category'
+  ]);

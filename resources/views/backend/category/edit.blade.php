@@ -1,4 +1,4 @@
-@extends('backend.layout.master')
+@extends('backend.index')
 @section('controller','Danh mục')
 @section('action','Sửa')
 @section('content')
@@ -8,7 +8,7 @@
 	      	<div class="col-lg-12">
 		      	 @include('backend.block.errors')
 			        @include('backend.block.flash_mag')
-              <form role="form"  class="form-horizontal" method="POST" action="{!!route('category.update',$data->id)!!}">
+              <form role="form"  class="form-horizontal" method="POST" action="{!!route('backend.category.update',$data->id)!!}">
 	 		          <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
 			            <div class="col-md-3">
 				           	<div class="panel-heading">
@@ -23,14 +23,14 @@
 	</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label>Tên danh mục</label>
+						<label>Tên danh mục <span class="text-danger">*</span></label>
 							<input type="text" name="name" class="form-control" value="{{$data->name}}">
 					</div>
 						    <div class="form-group">
 									<label>Danh mục cha</label>
 									  <select class="form-control" name="parent_id">
 									  	<option value="0">-- ROOT --</option>
-                        <?php MenuMulti($cate,0,$str='---| ',$data['parent_id']); ?>
+                         {{ MenuMulti($cate,0,$str='---| ',$data['parent_id']) }}
 								  	</select>
 							   </div>
 					     </form>

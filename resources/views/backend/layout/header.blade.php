@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{!! url('backend/dist/css/adminlte.min.css') !!}">
+
   <!-- iCheck -->
   <link rel="stylesheet" href="{!! url('backend/plugins/iCheck/flat/blue.css') !!}">
   <!-- Morris chart -->
@@ -28,4 +29,5 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- jQuery UI 1.11.4 -->
+  <link rel="stylesheet" href="{!! url('backend/dist/css/style.css') !!}">
 </head>
