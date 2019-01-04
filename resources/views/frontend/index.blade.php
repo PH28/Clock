@@ -84,6 +84,8 @@ $(document).ready(function()
   	</div>
   </div>
   <!-- //product-nav -->
+   @include('frontend.layout.product_nav')
+<!--end product-nav  -->
 
 
 <!-- login -->

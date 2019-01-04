@@ -75,7 +75,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   	</div>
   </div>
   <!-- //product-nav -->
-
+   @include('frontend.layout.product_nav')
+  <!-- end product-nav -->
 
 <!-- login -->
 @include('frontend.layout.login')

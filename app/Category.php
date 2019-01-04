@@ -10,4 +10,8 @@ class Category extends Model
     protected $fillabel = ['id','parent_id','name'];
     protected $guarded = array();  // fix _token gây ra lỗi không create request->all()
 
+    public function child()
+    {
+        return $this->hasMany('App\Category', 'parent_id');
+    }
 }

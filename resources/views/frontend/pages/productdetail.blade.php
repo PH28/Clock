@@ -21,7 +21,7 @@
 					<!-- //FlexSlider-->
 					<ul class="slides">
 						<li data-thumb="{!! asset('images/'.$productdetail->image) !!}">
-							<div class="thumb-image"><img src="{!! asset('images/'.$productdetail->image) !!}" data-imagezoom="true" class="img-responsive" > </div>
+							<div class="thumb-image"><img src="{!! asset('images/'.$productdetail->image) !!}" data-imagezoom="true" class="img-responsive" style="width:450px;height:460px;"> </div>
 						</li>
 					</ul>
 					<div class="clearfix"></div>
@@ -56,11 +56,10 @@
 						</div>
 					</div> <br>
 					<div class="occasion-cart">
-						<a href="#" class="item_add hvr-outline-out button2">Add to cart</a>
+						<a href="{!! url('addcart',$productdetail->id) !!}" class="item_add hvr-outline-out button2">Add to cart</a>
 				  </div>
 		     </div>
 				<div class="clearfix"> </div>
-
 				<div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
 					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 						<ul id="myTab" class="nav nav-tabs" role="tablist">
@@ -79,28 +78,31 @@
 										<div class="bootstrap-tab-text-grid-left">
 											<img src="{!! url ('frontend/images/men3.jpg') !!}" alt=" " class="img-responsive">
 										</div>
+
 										<div class="bootstrap-tab-text-grid-right">
+								@foreach ($comments as $comment)
 											<ul>
-												<li><a href="#">Admin</a></li>
+												<li><a href="#">{{$comment->user_id}}</a></li>
 												<li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
 											</ul>
-											<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-												suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-												vel eum iure reprehenderit.</p>
+											<p>{{$comment->content}}</p>
+								@endforeach
 										</div>
+
 										<div class="clearfix"> </div>
 									</div>
-
+            	@if( Auth::check())
 									<div class="add-review">
 										<h4>Thêm đánh giá</h4>
-										<form>
-											<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-											<input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-
-											<textarea type="text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
-											<input type="submit" value="SEND">
-										</form>
+										<form role="form"  class="form-horizontal" method="POST" action="{{route('comment')}}">
+										 <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
+										 <input type="hidden" name="product_id" value="{{$productdetail->id}}">
+										 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+										 <textarea type="text" name="content" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+										 <input type="submit" value="SEND">
+									 </form>
 									</div>
+						   @endif
 								</div>
 							</div>
 						</div>
@@ -109,13 +111,4 @@
 	</div>
 </div>
 <!-- //single -->
-
-
-
-
-
-
-
-
-
 @endsection
