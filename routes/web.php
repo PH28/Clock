@@ -120,7 +120,7 @@ Route::group(['prefix' => 'product'],function(){
     'as'=> 'register',
     'uses'=> 'LoginController@store',
   ]);
-  Route::get('login',[                    // đăng nhập người dùng
+  Route::get('login',[                       // đăng nhập người dùng
     'as'=> 'login',
     'uses'=> 'LoginController@getUser',
   ]);
@@ -136,11 +136,45 @@ Route::group(['prefix' => 'product'],function(){
     'as' => 'productdetail',
     'uses'=> 'PageController@productdetail'
   ]);
-  Route::get('cart',[                        // vào trang xem giỏ hàng
-    'as' => 'cart',
-    'uses'=> 'PageController@cart'
+  Route::get('showcart',[                    // vào trang xem giỏ hàng
+    'as' => 'showcart',
+    'uses'=> 'CartController@showcart'
   ]);
-  Route::get('category',[                        // vào trang hiển thị tất cả sản phẩm
+  Route::get('addcart/{id}',[                // thêm vào giỏ hàng
+    'as' => 'addcart',
+    'uses'=> 'CartController@addcart'
+  ]);
+  Route::get('destroycart',[                 // xóa giỏ hàng
+    'as' => 'destroycart',
+    'uses'=> 'CartController@destroycart'
+  ]);
+  Route::get('removecart/{id}',[             // xóa sản phẩm trong giỏ hàng
+    'as' => 'removecart',
+    'uses'=> 'CartController@removecart'
+  ]);
+  Route::get('updatecart',[                  // cập nhật số lượng trong giỏ hàng
+    'as' => 'updatecart',
+    'uses'=> 'CartController@updatecart'
+  ]);
+  Route::get('payment',[                     // thanh toán
+    'as' => 'payment',
+    'uses'=> 'CartController@payment'
+  ]);
+  Route::post('payment',[                     // thanh toán
+    'as' => 'postpayment',
+    'uses'=> 'CartController@postpayment'
+  ]);
+
+
+
+
+
+
+  Route::get('category',[                    // vào trang hiển thị tất cả sản phẩm
     'as' => 'category',
     'uses'=> 'PageController@category'
+  ]);
+  Route::post('comment',[                    // xử lí thông tin comment sản phẩm
+    'as' => 'comment',
+    'uses'=> 'PageController@comment'
   ]);

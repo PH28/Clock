@@ -16,9 +16,9 @@
         <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav menu__list">
           <li class="active menu__item menu__item--current"><a class="menu__link" href="{{route('index')}}">Trang chủ<span class="sr-only">(current)</span></a></li>
-          <li class="active menu__item menu__item--current"><a class="menu__link" href="{{route('category')}}">Thể loại<span class="sr-only">(current)</span></a></li>
+          <li class="active menu__item menu__item--current"><a class="menu__link" href="{{route('category')}}">Sản phẩm<span class="sr-only">(current)</span></a></li>
           <li class="dropdown menu__item">
-            <a href="{{route('category')}}" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Thể loại<span class="caret"></span></a>
+            <a href="{{route('category')}}" class=" menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Thể loại<span class="caret"></span></a>
               <ul class="dropdown-menu multi-column columns-3">
                 <div class="row">
                   <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
@@ -27,7 +27,7 @@
                   <div class="col-sm-3 multi-gd-img">
                     <ul class="multi-column-dropdown">
 
-                      <li><a href=""> </a></li>
+                        <li><a href=""></a></li>
 
                     </ul>
                   </div>
@@ -45,15 +45,19 @@
     </div>
     <div class="top_nav_right">
       <div class="cart box_1">
-            <a href="{{route('cart')}}">
-              <h3> <div class="total">
-                <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
-
-              </h3>
-            </a>
+        <a href="{{route('showcart')}}">
+          <h3>
+            <div class="total">
+              <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+              </div>
+            </h3>
+          </a>
+      @if(Cart::count() > 0)
+            <p><a href="javascript:;" class="simpleCart_empty">{{Cart::count()}}</a></p>
+      @else
             <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
+      @endif
       </div>
     </div>
     <div class="clearfix"></div>
