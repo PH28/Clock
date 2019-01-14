@@ -49,12 +49,12 @@
               <!-- textarea -->
               <div class="form-group">
                 <label>Đánh giá</label>
-                <textarea id="editor1" name="content" style="width: 100%" rows="3"  value="">{{old('description')}}</textarea>
+                <textarea class="form-control focus-form" name="content" id="ckeditor2"> {!! old('content') !!} </textarea>
                 <p class="alert text-danger"> {{$errors->first('content')}} </p>
               </div>
               <div class="form-group">
                 <label>Đánh giá chi tiết</label>
-                <textarea id="editor2" name="description" style="width: 100%" rows="3"  value="">{{old('content')}}</textarea>
+                <textarea class="form-control" name="description" id="ckeditor1"> {!! old('description') !!} </textarea>
                 <p class="alert text-danger"> {{$errors->first('description')}} </p>
               </div>
               <div class="form-group">

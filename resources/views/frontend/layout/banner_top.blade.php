@@ -16,28 +16,10 @@
         <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav menu__list">
           <li class="active menu__item menu__item--current"><a class="menu__link" href="{{route('index')}}">Trang chủ<span class="sr-only">(current)</span></a></li>
-          <li class="active menu__item menu__item--current"><a class="menu__link" href="{{route('category')}}">Sản phẩm<span class="sr-only">(current)</span></a></li>
-          <li class="dropdown menu__item">
-            <a href="{{route('category')}}" class=" menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Thể loại<span class="caret"></span></a>
-              <ul class="dropdown-menu multi-column columns-3">
-                <div class="row">
-                  <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-                    <a href=""><img src="{!! url('frontend/images/woo1.jpg') !!}" alt=" "/></a>
-                  </div>
-                  <div class="col-sm-3 multi-gd-img">
-                    <ul class="multi-column-dropdown">
-
-                        <li><a href=""></a></li>
-
-                    </ul>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </ul>
-          </li>
-          <li class=" menu__item"><a class="menu__link" href="electronics.html">Giới thiệu</a></li>
-          <li class=" menu__item"><a class="menu__link" href="codes.html">Tin tức</a></li>
-          <li class=" menu__item"><a class="menu__link" href="contact.html">Liên hệ</a></li>
+          <li class=" menu__item"><a class="menu__link" href="{{route('product')}}">Sản phẩm<span class="sr-only">(current)</span></a></li>
+          <li class=" menu__item"><a class="menu__link" href="#">Giới thiệu</a></li>
+          <li class=" menu__item"><a class="menu__link" href="#">Tin tức</a></li>
+          <li class=" menu__item"><a class="menu__link" href="{{route('contact')}}">Liên hệ</a></li>
           </ul>
         </div>
         </div>
@@ -46,20 +28,26 @@
     <div class="top_nav_right">
       <div class="cart box_1">
         <a href="{{route('showcart')}}">
-          <h3>
-            <div class="total">
+  @if(Cart::count() > 0)
+        <h3>
+          <div class="total">
+             <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                <span> Giỏ hàng </span>
+          </div>
+        </h3>
+          <p><a href="javascript:;" class="simpleCart_empty">({{ Cart::count() }})</a></p>
+  @else
+        <h3>
+           <div class="total">
               <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-                <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
-              </div>
-            </h3>
-          </a>
-      @if(Cart::count() > 0)
-            <p><a href="javascript:;" class="simpleCart_empty">{{Cart::count()}}</a></p>
-      @else
-            <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-      @endif
+                 <span> Giỏ hàng </span>
+          </div>
+        </h3>
+        <p><a href="javascript:;" class="simpleCart_empty">(trống)</a></p>
+  @endif
+             </a>
+           </div>
+         </div>
+           <div class="clearfix"></div>
       </div>
     </div>
-    <div class="clearfix"></div>
-  </div>
-</div>

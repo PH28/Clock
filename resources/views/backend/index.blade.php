@@ -18,8 +18,7 @@
          <!-- /.content -->
 
 
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
+      </div> 
+    </div>
 
 @include('backend.layout.footer')

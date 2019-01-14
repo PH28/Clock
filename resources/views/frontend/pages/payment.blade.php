@@ -1,7 +1,5 @@
 @extends('frontend.master')
 @section('content')
-
-
 <!-- contact -->
 	<div class="contact">
 		<div class="container">
@@ -37,55 +35,90 @@
 						<div class="login">
 							<div class="login-bottom">
 								<h3>Thông tin</h3>
+				    @include('frontend.block.errors')
+						@if( Auth::check())
 						<div class="sign-up">
-							<h4>Họ và tên :</h4>
-							<input type="text" name="name"  placeholder="Họ và tên"  required="">
+							<h4><span class="text-danger">*</span>Họ và tên :</h4>
+							<input type="text" name="name"  placeholder="Họ và tên" value="{{Auth::user()->name}}"  required="">
 						</div>
 						<div class="sign-up">
-							<h4>Email :</h4>
+							<h4><span class="text-danger">*</span>Email :</h4>
+							<input type="text" name="email" placeholder="Email"value="{{Auth::user()->email}}"  required="">
+						</div>
+						<div class="sign-up">
+							<h4><span class="text-danger">*</span>Địa chỉ :</h4>
+							<input type="text" name="address" placeholder="Địa chỉ" value="{{Auth::user()->address}}"  required="">
+						</div>
+						<div class="sign-up">
+							<h4><span class="text-danger">*</span>Số điện thoại :</h4>
+							<input type="text" name="phone" placeholder="Số điện thoại" value="{{Auth::user()->phone}}" required="">
+						</div>
+						<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+						@else
+						<div class="sign-up">
+							<h4><span class="text-danger">*</span>Họ và tên :</h4>
+							<input type="text" name="name"  placeholder="Họ và tên"   required="">
+						</div>
+						<div class="sign-up">
+							<h4><span class="text-danger">*</span>Email :</h4>
 							<input type="text" name="email" placeholder="Email"  required="">
 						</div>
 						<div class="sign-up">
-							<h4>Địa chỉ :</h4>
-							<input type="text" name="address" placeholder="Địa chỉ"  required="">
+							<h4><span class="text-danger">*</span>Địa chỉ :</h4>
+							<input type="text" name="address" placeholder="Địa chỉ"   required="">
 						</div>
 						<div class="sign-up">
-							<h4>Số điện thoại :</h4>
-							<input type="text" name="phone" placeholder="Số điện thoại" required="">
+							<h4><span class="text-danger">*</span>Số điện thoại :</h4>
+							<input type="text" name="phone" placeholder="Số điện thoại"  required="">
 						</div>
+						@endif
 			    	<input type="hidden" name="status" value="0">
 						<div class="sign-up">
 							<input type="submit" value="Đặt hàng" >
 						</div>
-						</div>
-						<div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
-					  	<h4>Đơn hàng</h4>
-								<ul>
-			    @foreach($data as $row)
-						<li>
-							<img src="{!! asset('images/'.$row->options->image) !!}" class="pull-left product-image" width="30" style="margin-right:5px;">
-								<div class="product-info pull-left">
-								  <span class="product-info-name">
-										<span style="font-size:10px">{!! $row->name !!}</span><span style="color:#C00; padding:0px 5px;"> X </span> {!! $row->qty !!}
-									</span>
-								</div>
-                      <i>-</i>
-									<span style="color:#C00">
-										@if($row->options->sale > 0)
-										 {{ number_format($row->options->sale * $row->qty,0,',','.'),
-											$totalsale+=($row->options->sale * $row->qty) }} đ
-										@else
-											{{ number_format($row->qty * $row->price,0,',','.'),
-											$total+=($row->qty * $row->price) }} đ
-										@endif
-									</span>
-							<input type="hidden" name="total_price" value="{!! $totalsale+$total !!}">
-						</li>
-						<br>
-				  @endforeach
-				         	<li>Tổng <i>-</i> <strong style="color:#3C0">{{number_format($totalsale + $total,0,',','.')}} đ</strong></li>
-								</ul>
-							</div>
+					</div>
+
+					<h3 class="bars">Đơn hàng</h3>
+ 					<div class="col-md-6">
+ 						  <table class="table table-bordered">
+ 							<thead>
+ 								<tr>
+ 									<th>Tên sản phẩm</th>
+ 									<th>Hình ảnh</th>
+ 									<th>Số lượng</th>
+ 									<th>Thành tiền</th>
+ 								</tr>
+ 							</thead>
+ 							<tbody>
+ 				@foreach($data as $row)
+ 								<tr>
+ 									<td><code>{!! $row->name !!}</code></td>
+ 									<td><img src="{!! asset('images/'.$row->options->image) !!}" class="pull-left product-image" width="30" style="margin-right:5px;"></td>
+ 									<td><code>{!! $row->qty !!}</code></td>
+ 									<td>
+										<span class="badge badge-primary">
+											@if($row->options->sale > 0)
+											 {{ number_format($row->options->sale * $row->qty,0,',','.'),
+												$totalsale+=($row->options->sale * $row->qty) }} đ
+											@else
+												{{ number_format($row->qty * $row->price,0,',','.'),
+												$total+=($row->qty * $row->price) }} đ
+											@endif
+										</span>
+									</td>
+ 								</tr>
+				@endforeach
+ 								<tr>
+									<td colspan="3"><code>Tổng tiền</code></td>
+ 									<td>
+										<span class="badge badge-danger">
+											{{number_format($totalsale + $total,0,',','.')}} đ
+										</span>
+									</td>
+ 								</tr>
+			        	</tbody>
+ 						  </table>
+ 					</div>
 							<div class="clearfix"></div>
 						</div>
 					</div>

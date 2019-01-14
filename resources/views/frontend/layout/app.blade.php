@@ -25,8 +25,12 @@
 						 <div class="item-info-product ">
 							 <h4><a href="{!! route('productdetail',$product_list->id) !!}">{{$product_list->name}}</a></h4>
 							 <div class="info-product-price">
+				@if($product_list->sale == 0)
 								 <span class="item_price">{{ number_format($product_list->price,0,',','.')}} đ </span>
-								 <del>{{ number_format($product_list->sale,0,',','.')}} đ </del>
+				@else
+			           <span class="item_price">{{ number_format($product_list->sale,0,',','.')}} đ </span>
+			           <del>{{ number_format($product_list->price,0,',','.')}} đ </del>
+				@endif
 							 </div>
 							 <a href="{!! url('addcart',$product_list->id) !!}" class="item_add single-item hvr-outline-out button2">Add to cart</a>
 						 </div>
@@ -55,8 +59,12 @@
 								<div class="item-info-product ">
 									<h4><a href="{!! route('productdetail',$product->id) !!}">{{$product->name}}</a></h4>
 									<div class="info-product-price">
+						@if($product->sale == 0)
 										<span class="item_price">{{ number_format($product->price,0,',','.')}} đ </span>
-										<del>{{ number_format($product->sale,0,',','.')}} đ</del>
+						@else
+					         	<span class="item_price">{{ number_format($product->sale,0,',','.')}} đ </span>
+					        	<del>{{ number_format($product->price,0,',','.')}} đ</del>
+						@endif
 									</div>
 									<a href="{!! url('addcart',$product->id) !!}" class="item_add single-item hvr-outline-out button2">Add to cart</a>
 								</div>

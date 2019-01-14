@@ -17,7 +17,7 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <!-- <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -26,7 +26,7 @@
           </button>
         </div>
       </div>
-    </form>
+    </form> -->
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -68,7 +68,7 @@
                with font-awesome or any other icon font library -->
 
             <a href="{!! route('backend.index') !!}" class="nav-link active">
-              <i class="nav-icon fa fa-dashboard"></i>
+              <i class="fa fa-object-group" aria-hidden="true"></i>
               <p>
               Trang chủ
 
@@ -76,7 +76,7 @@
             </a>
           <li class="nav-item">
             <a href="{!!url('backend/category/list')!!}" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+              <i class="fa fa-address-card" aria-hidden="true"></i>
               <p>
                 Danh mục
               </p>
@@ -84,15 +84,15 @@
           </li>
           <li class="nav-item">
             <a href="{!! url('backend/product/list') !!}" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <p>
                 Sản Phẩm
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+            <a href="{{route('backend.cart.index')}}" class="nav-link">
+              <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
               <p>
                 Đơn Hàng
               </p>
@@ -100,7 +100,7 @@
           </li>
           <li class="nav-item">
             <a href="{!! url('backend/user/list') !!}" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+             <i class="fa fa-users" aria-hidden="true"></i>
               <p>
                 Khách Hàng
               </p>
@@ -108,7 +108,7 @@
           </li>
           <li class="nav-item">
             <a href="{!! url('backend/admin/list') !!}" class="nav-link">
-              <i class="nav-icon fa fa-th"></i>
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
               <p>
                 Admin
               </p>

@@ -26,7 +26,7 @@ class UserRequests extends FormRequest
     {
         return [
           'name'   => 'required|min:3',
-          'phone'   => 'required|min:3',
+          'phone'   => 'required|min:3|max:10',
           'email'  => 'required|email|unique:users',
           'address'=>'required|min:3',
           'password'  => 'required|min:6|confirmed',
@@ -37,7 +37,8 @@ class UserRequests extends FormRequest
     {
         return [
           'name.required'   => 'Vui lòng nhập họ tên',
-          'name.min'   => 'Họ tên lớn hơn 3 ký tự.',
+          'name.min'   => 'Họ tên lớn hơn 3 ký tự',
+          'name.max'   => 'Họ tên không được quá 10 kí tự',
           'phone.required'=>'Vui lòng nhập số điện thoại',
           'phone.min'=>'Số điện thoại không nhỏ hơn 3',
           'email.required'  => 'Vui lòng nhập email',

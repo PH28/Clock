@@ -1,24 +1,51 @@
 
 <!-- jQuery -->
 <script src="{!! url('backend/plugins/jquery/jquery.min.js') !!}"></script>
-<!-- <script src="{!! url('js/myscript.js') !!}"></script> -->
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
 $.widget.bridge('uibutton', $.ui.button)
 </script>
+
+<!-- script chạy thông báo lỗi -->
 <script type="text/javascript">
 $(document).ready(function()
 {
 	$(".alert").delay(5000).slideUp();
 });
 </script>
+<!-- end thông báo lỗi -->
+
+<!-- js ckediter -->
+<script src="{!! url('backend/jQuery-2.1.4.min.js') !!}"></script>
+<script src="{!! url('backend/myscript.js') !!}"></script>
+<!-- ckediter và ckfinder -->
+ <script type="text/javascript" src="{!! url('backend/ckeditor/ckeditor.js') !!}"></script>
+ <script type="text/javascript" src="{!! url('backend/ckfinder/ckfinder.js') !!}"></script>
+ <script type="text/javascript">
+		 var baseURL ="{!! url('/') !!}";
+ </script>
+ <script type="text/javascript" src="{!! url('backend/func_ckfinder.js') !!}"></script>
+ <!-- end ckediter và ckfinder -->
+ <script type="text/javascript">
+	 CKEDITOR.replace('ckeditor2',{
+		 height: '150px',
+		 toolbar:[
+		 ['Source','-','NewPage','Preview','-','Templates'],
+		 ['Styles','Format','Font','FontSize'],
+		 ['TextColor','BGColor'],
+		 ]
+	 });
+ </script>
+ <script type="text/javascript">
+	 ckeditor('ckeditor1');
+ </script>
 <!-- Bootstrap 4 -->
 <script src="{!! url('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 <script src="{!! url('backend/plugins/morris/morris.min.js') !!}"></script>
 <!-- Sparkline -->
 <script src="{!! url('backend/plugins/sparkline/jquery.sparkline.min.js') !!}"></script>
@@ -44,38 +71,7 @@ $(document).ready(function()
 <script src="{!! url('backend/dist/js/pages/dashboard.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{!! url('backend/dist/js/demo.js') !!}"></script>
-<!-- CK Editor -->
-<script src="{!! url('backend/plugins/ckeditor/ckeditor.js') !!}"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{!! url('backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') !!}"></script>
-<script>
-  $(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    ClassicEditor
-      .create(document.querySelector('#editor1'))
-      .then(function (editor) {
-        // The editor instance
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
-    ClassicEditor
-      .create(document.querySelector('#editor2'))
-      .then(function (editor) {
-        // The editor instance
-      })
-      .catch(function (error) {
-        console.error(error)
-      })
-
-    // bootstrap WYSIHTML5 - text editor
-
-    $('.textarea').wysihtml5({
-      toolbar: { fa: true }
-    })
-  })
-</script>
-
 </body>
 </html>

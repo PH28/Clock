@@ -3,7 +3,7 @@
 <div class="footer">
 	<div class="container">
 		<div class="col-md-3 footer-left">
-			<h2><a href="index.html"><span class="m_1">W</span>atches</a></h2>
+			<h2><a href="{{route('index')}}"><img src="{!! url('frontend/images/logo.png') !!}"></a></h2>
 		</div>
 		<div class="col-md-9 footer-right">
 			<div class="col-sm-6 newsleft">

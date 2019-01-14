@@ -14,7 +14,8 @@ class AdminController extends Controller
 // Vào trang list admin
     public function index()
     {
-        $admin = User::all();
+        $admin = User::orderBy('id', 'desc')->where('roles',1)->paginate(5);
+        // $admin = User::all()->where('roles',1);
         return view('backend.admin.list',compact('admin'));
     }
 
@@ -28,7 +29,7 @@ class AdminController extends Controller
     public function store(AdminRequestsStore $request)
     {
        $data = $request->all();
-       // $data['password'] = Hash::make($data['password']);
+       $data['password'] = Hash::make($data['password']);
        $user_login = Auth::user()->level;   // admin đang đăng nhập.
        if($user_login == 10) {
        $admin = User::create($data);
@@ -74,4 +75,20 @@ class AdminController extends Controller
           return redirect()->route('backend.admin.index')->with(['flash_level'=>'result_msg','flash_massage'=>'Đã xóa thành công']);
       }
     }
+    public function search(Request $request)
+    {
+      $search = $request->get('search');
+           if($search != ''){
+               $admin = User::where('id', 'like', '%'.$search.'%')
+                       ->orWhere('name', 'like', '%'.$search.'%')
+                       ->orWhere('email', 'like', '%'.$search.'%')
+                       ->orWhere('phone', 'like', '%'.$search.'%')
+                       ->orderBy('id', 'desc')->paginate(5);
+           }
+           else{
+               $admin = User::orderBy('id', 'desc')->where('roles',1)->paginate(5);
+           }
+       return view('backend.admin.list',compact('admin'));
+    }
+
 }

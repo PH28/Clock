@@ -11,7 +11,7 @@ class Product extends Model
   protected $guarded = array();   // fix _token gây ra lỗi không create request->all()
 
   public function category(){
-    return $this->belongsTo('App\Category');
+    return $this->belongsTo('App\Category','cate_id','id');
   }
   public function comment(){
     return $this->hasMany('App\Comment');
