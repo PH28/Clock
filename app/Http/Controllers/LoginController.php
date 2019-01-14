@@ -26,7 +26,7 @@ class LoginController extends Controller
     {
      return redirect()->route('backend.index');
     }else{
-       return redirect()->route('admin.getLogin');
+       return redirect()->route('admin.getLogin')->with(['flash_level1'=>'result_msg','error_massage'=>'Đăng nhập thất bại !']);; // thông báo đăng nhập thất bại
     }
   }
 
@@ -61,24 +61,20 @@ class LoginController extends Controller
 // kiểm tra đăng nhập người dùng
    public function postUser(Request $request)
    {
-     if(Auth::attempt(['email'=> $request->email,'password'=> $request->password,'roles'=>0]))
+     if(Auth::attempt(['email'=> $request->email,'password'=> $request->password]))
      {
       return redirect()->route('index');  // đi vào trang người dùng
      }else{
-       if(Auth::attempt(['email'=> $request->email,'password'=> $request->password,'roles'=>1]))
-       {
-        return redirect()->route('backend.index');  // đi vào trang admin
-      }else {
         return view('frontend.pages.register');  //trả về trang đăng kí tài khoản pages vs một thông báo tài khoản ko chính xác đăng nhập lại hoặc đăng kí
       }
-          }
+
    }
 
 // Đăng xuất người dùng
      public function logoutUser()
      {
          Auth::logout();
-         return view('frontend.index');
+         return redirect()->route('index');
      }
 
 }

@@ -13,23 +13,15 @@
 	<!-- header-bot -->
 	<div class="header-bot">
 		<div class="container">
+
 			<div class="col-md-3 header-left">
-				 <h1><a href="{{route('index')}}"><span class="m_1">W</span>atches</a></h1> <!-- // tiêu đề web  -->
+				 <h1><a href="{{route('index')}}"><img src="{!! url('frontend/images/logo.png') !!}"> </a></h1> <!-- // tiêu đề web  -->
 			</div>
+
 			<div class="col-md-6 header-middle">
-				<form>
+				<form method="GET" action="{{route('search')}}">
 					<div class="search">
-						<input type="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">
-					</div>
-					<div class="section_room">
-						<select id="country" onchange="change_country(this.value)" class="frm-field required">
-							<option value="null">All categories</option>
-							<option value="null">Electronics</option>
-							<option value="AX">kids Wear</option>
-							<option value="AX">Men's Wear</option>
-							<option value="AX">Women's Wear</option>
-							<option value="AX">Watches</option>
-						</select>
+						<input type="search" name="search" placeholder="Nhập tên sản phẩm hoặc giá bạn cần tìm ...">
 					</div>
 					<div class="sear-sub">
 						<input type="submit" value=" ">
@@ -37,17 +29,19 @@
 					<div class="clearfix"></div>
 				</form>
 			</div>
+
 			<div class="col-md-3 header-right footer-bottom">
 				<ul>
 					@if( Auth::check())
-					<li><a href="{{route('logout')}}" class="use1" data-toggle="modal" data-target="#myModal4" ><span>Logout</span></a><p style="color:#FF010E;">{{Auth::user()->name}}</p></li>
+					<li><span class="badge badge-success"><h2>{{Auth::user()->name}}</h2></span></li>
+		    	<li><a href="{{route('logout')}}"><h5>Logout</h5></a></li>
 					@else
 					<li><a href="#" class="use1" data-toggle="modal" data-target="#myModal4"><span>Login</span></a></li>
-					@endif
 					<li><a class="fb" href="#"></a></li>
 					<li><a class="twi" href="#"></a></li>
 					<li><a class="insta" href="#"></a></li>
 					<li><a class="you" href="#"></a></li>
+					@endif
 				</ul>
 			</div>
 			<div class="clearfix"></div>

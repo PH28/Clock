@@ -19,12 +19,14 @@
    <div class="card-header">
       <h3 class="card-title">Table</h3>
          <div class="card-tools">
+      <form class="" action="{{route('backend.admin.search')}}" method="GET">
             <div class="input-group input-group-sm" style="width: 150px;">
-               <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+               <input type="text" name="search" class="form-control float-right" placeholder="Search">
                  <div class="input-group-append">
                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                  </div>
               </div>
+      </form>
            </div>
         </div>
 
@@ -54,7 +56,7 @@
               @elseif($admins->level == 1)
                 <span style="color:#27ae60;">Admin</span>
               @else
-                <span style="color:#27ae60;">Người bán hàng</span>
+                <span style="color:#27ae60;">User</span>
               @endif
             </td>
             <td>
@@ -70,12 +72,17 @@
       @endforeach
         </tbody>
         </table>
-      </div>
-      <!-- /.card-body -->
+        <div class="pull-right">
+            <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                    <li>{!! $admin->render()!!}</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+       </div>
+     </div>
+   </div>
   </div>
-    <!-- /.card -->
-</div>
-</div><!-- /.row -->
-</div><!-- /.container-fluid -->
 </section>
 @endsection

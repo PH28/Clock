@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use App\OrderDetail;
+use App\Order;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequestsStore;
@@ -17,22 +19,8 @@ class ProductController extends Controller
 // vào trang list các sản phẩm
     public function index()
     {
-       $datas = Product::with('category')->paginate(5);
-        foreach ($datas as $data) {
-          $category = DB::table('category')          // gọi ra tên danh mục
-                       ->where('id',$data->cate_id)
-                       ->first();
-        }
-      return view("backend.product.list",compact('datas','category'));
-
-      // $datas = DB::table('products')->paginate(5);
-      // foreach ($datas as $data) {
-      //   $category = DB::table('category')          // gọi ra tên danh mục
-      //                ->where('id',$data->cate_id)
-      //                ->first();
-       // }
-       // dd($category);
-      // return view("backend.product.list",compact('datas','category'));
+       $products = Product::with('category')->paginate(5);
+       return view("backend.product.list",compact('products','category'));
     }
 
 // Vào trang thêm sản phẩm
@@ -59,7 +47,7 @@ class ProductController extends Controller
        $product->image = "";
      }
       $store = Product::create($product);
-      return redirect()->route('product.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm sản phẩm  thành công !']);
+      return redirect()->route('backend.product.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã thêm sản phẩm  thành công !']);
      }
 
 //  Vào trang sửa sản phẩm
@@ -103,7 +91,29 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $order   = OrderDetail::where('product_id', $product->id)->get();
+        if ($order->count() > 0) {
+        return redirect()->route('backend.product.index')->with(['flash_level1'=>'result_msg','error_massage'=>' Bạn không thể xóa sản phẩm đang được đặt hàng !']);
+      }else{
+        File::delete('images/'.$product->image);
         $product->delete();
         return redirect()->route('backend.product.index')->with(['flash_level'=>'result_msg','flash_massage'=>' Đã xóa !']);
+      }
+    }
+
+// tìm kiếm sản phẩm
+    public function search(Request $request)
+    {
+      $search = $request->get('search');
+           if($search != ''){
+               $products = Product::where('id', 'like', '%'.$search.'%')
+                       ->orWhere('name', 'like', '%'.$search.'%')
+                       ->orWhere('price', 'like', '%'.$search.'%')
+                       ->orderBy('id', 'desc')->paginate(5);
+           }
+           else{
+               $products = Product::orderBy('id', 'desc')->paginate(5);
+           }
+       return view('backend.product.list',compact('products'));
     }
 }

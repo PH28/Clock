@@ -1,7 +1,5 @@
 @extends('frontend.master')
 @section('content')
-
-
 <!-- single -->
 <div class="single">
 	<div class="container">
@@ -29,8 +27,22 @@
 			</div>
 		</div>
 		<div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-					<h3>{{$productdetail->name}}</h3>
-					<p><span class="item_price">{{ number_format($productdetail->sale,0,',','.')}} đ </span> <del>- {{ number_format($productdetail->price,0,',','.')}} đ </del></p>
+					<h3>{{$productdetail->name}}</h3><br>
+					<div class="color-quality">
+						<div class="color-quality-right">
+							<h5>Thương hiệu : {{$productdetail->made}}</h5>
+						</div>
+					</div>
+		@if($productdetail->sale == 0)
+		      <p>
+	 	        <span class="item_price">{{ number_format($productdetail->price,0,',','.')}} đ</span>
+	       </p>
+		@else
+		     <p>
+				   <span class="item_price">{{ number_format($productdetail->sale,0,',','.')}} đ</span>
+			     <del>-{{ number_format($productdetail->price,0,',','.')}} đ</del>
+	     	</p>
+		@endif
 					<div class="rating1">
 						<span class="starRating">
 							<input id="rating5" type="radio" name="rating" value="5">
@@ -47,7 +59,7 @@
 					</div>
           <div class="description">
             <h2>Tổng quan nhanh :</h2>
-            <p><span>{{$productdetail->content}}</span></p>
+            <p><span>{!!$productdetail->content!!}</span></p>
           </div>
 					<div class="color-quality">
 						<div class="color-quality-right">
@@ -70,7 +82,7 @@
 							<div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
 								<h2>Mô tả sản phẩm</h2>
                 <br>
-								<p>{{$productdetail->description}}</p>
+								<p><span>{!! $productdetail->description !!}</span></p>
 							</div>
 							<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
 								<div class="bootstrap-tab-text-grids">
@@ -80,12 +92,12 @@
 										</div>
 
 										<div class="bootstrap-tab-text-grid-right">
-								@foreach ($comments as $comment)
+								@foreach($comments as $comment)
 											<ul>
-												<li><a href="#">{{$comment->user_id}}</a></li>
+												<li><a href="#">{{$comment->user->name}}</a></li>
 												<li><a href="#"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Reply</a></li>
 											</ul>
-											<p>{{$comment->content}}</p>
+											<p>{!! $comment->content !!}</p>
 								@endforeach
 										</div>
 
@@ -108,7 +120,7 @@
 						</div>
 					</div>
 				</div>
-	</div>
-</div>
+	    </div>
+    </div>
 <!-- //single -->
 @endsection

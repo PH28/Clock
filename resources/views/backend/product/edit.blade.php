@@ -31,7 +31,7 @@
               </div>
               <div class="form-group">
                 <label>Giá <span class="text-danger">*</span> </label>
-                <input type="text" class="form-control" name="price"  value="{{$product->price}}">
+                <input type="text" class="form-control" name="price"  value="{{ old('price') ? old('price') : $product->price}}">
                 <p class="alert text-danger"> {{$errors->first('price')}}</p>
               </div>
               <div class="form-group">
@@ -48,13 +48,13 @@
               <!-- textarea -->
               <div class="form-group">
                 <label>Đánh giá</label>
-                <textarea id="editor1" name="description" style="width: 100%">{{$product->description}}</textarea>
+                <textarea class="form-control focus-form" name="description" id="ckeditor1">{{$product->description}}</textarea>
                 <p class="alert text-danger"> {{$errors->first('description')}} </p>
               </div>
 
               <div class="form-group">
                 <label>Đánh giá chi tiết</label>
-                <textarea id="editor2" name="content" style="width: 100%">{{$product->content}}</textarea>
+                <textarea class="form-control focus-form" name="content" id="ckeditor2">{{$product->content}}</textarea>
                 <p class="alert text-danger"> {{$errors->first('content')}} </p>
               </div>
 

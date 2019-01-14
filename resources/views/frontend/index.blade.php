@@ -19,7 +19,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="{!! url('frontend/css/bootstrap.css') !!}" rel="stylesheet" type="text/css" media="all" />
 <!-- pignose css -->
 <link href="{!! url('frontend/css/pignose.layerslider.css') !!}" rel="stylesheet" type="text/css" media="all" />
-
+<!-- Ionicons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- //pignose css -->
 <link href="{!! url('frontend/css/style.css') !!}" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->

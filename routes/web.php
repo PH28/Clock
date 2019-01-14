@@ -30,9 +30,9 @@
 
 Route::group(['prefix' =>'backend','middleware' => 'checklogin'],function(){
   Route::group(['prefix' => 'admin'],function(){
-  //     // Route::post('search',[
-  //     // 'as'=>'category.search',
-  //     // 'uses'=>'CategoryController@getsearch']);
+      Route::get('search',[
+      'as'=>'backend.admin.search',
+      'uses'=>'AdminController@search']);
       Route::get('add',[
         'as' => 'backend.admin.create',
         'uses' => 'AdminController@create']);
@@ -53,6 +53,23 @@ Route::group(['prefix' =>'backend','middleware' => 'checklogin'],function(){
         'uses' => 'AdminController@update']);
     });
 
+    Route::group(['prefix' => 'cart'],function(){
+        Route::get('search',[
+          'as'=>'backend.cart.search',
+          'uses'=>'OrderController@search']);
+        Route::get('list',[
+          'as' => 'backend.cart.index',
+          'uses' => 'OrderController@index']);
+        Route::get('show/{id}',[
+          'as' => 'backend.cart.show',
+          'uses' => 'OrderController@show']);
+        Route::post('show/{id}',[
+          'as' => 'backend.cart.update',
+          'uses' => 'OrderController@update']);
+        Route::get('delete/{id}',[
+          'as' => 'backend.cart.destroy',
+          'uses' => 'OrderController@destroy']);
+    });
 
 Route::group(['prefix' => 'category'],function(){
 //     // Route::post('search',[
@@ -78,9 +95,9 @@ Route::group(['prefix' => 'category'],function(){
       'uses' => 'CategoryController@update']);
       });
 Route::group(['prefix' => 'product'],function(){
-//     // Route::post('search',[
-//     // 'as'=>'backend.category.search',
-//     // 'uses'=>'CategoryController@getsearch']);
+    Route::get('search',[
+    'as'=>'backend.product.search',
+    'uses'=>'ProductController@search']);
     Route::get('add',[
       'as' => 'backend.product.create',
       'uses' => 'ProductController@create']);
@@ -136,6 +153,7 @@ Route::group(['prefix' => 'product'],function(){
     'as' => 'productdetail',
     'uses'=> 'PageController@productdetail'
   ]);
+
   Route::get('showcart',[                    // vào trang xem giỏ hàng
     'as' => 'showcart',
     'uses'=> 'CartController@showcart'
@@ -164,17 +182,31 @@ Route::group(['prefix' => 'product'],function(){
     'as' => 'postpayment',
     'uses'=> 'CartController@postpayment'
   ]);
-
-
-
-
-
-
-  Route::get('category',[                    // vào trang hiển thị tất cả sản phẩm
-    'as' => 'category',
-    'uses'=> 'PageController@category'
+  Route::get('contact',[                      //  liên hệ
+    'as' => 'contact',
+    'uses'=> 'PageController@contact'
   ]);
+  Route::post('contact',[                      //  liên hệ
+    'as' => 'postcontact',
+    'uses'=> 'PageController@postcontact'
+  ]);
+
+  Route::get('product',[                    // vào trang hiển thị tất cả sản phẩm
+    'as' => 'product',
+    'uses'=> 'PageController@product'
+  ]);
+
+  Route::get('listProductByCateId/{id}',[    // vào trang hiển thị tất cả sản phẩm theo thể loại
+    'as' => 'listProductByCateId',
+    'uses'=> 'PageController@listProductByCateId'
+  ]);
+
   Route::post('comment',[                    // xử lí thông tin comment sản phẩm
     'as' => 'comment',
     'uses'=> 'PageController@comment'
   ]);
+  Route::get('search',[                    // tìm kiếm sản phẩm
+    'as' => 'search',
+    'uses'=> 'PageController@search'
+  ]);
+  Route::get('/categories/{id}/products', 'ProductController@listProductByCateId');

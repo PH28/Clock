@@ -23,6 +23,7 @@
   <div class="login-logo">
     <a href="/"><b></b>WATCHES</a>
   </div>
+      @include('backend.block.flash_mag')
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">

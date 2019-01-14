@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PaymentRequest;
 use App\Product;
 use App\Order;
-use App\Order_detail;
+use App\OrderDetail;
 use Cart;
+use Mail;
+use DB;
 
 class CartController extends Controller
 {
@@ -32,10 +36,11 @@ class CartController extends Controller
 // show vào trong giỏ hàng
    public function showcart()
    {
-     $data = Cart::content();
+     $cart  = Cart::count();
+     $data  = Cart::content();
      $total = 0;
      $totalsale = 0;
-     return view('frontend.pages.cart',compact('data','total','totalsale'));
+     return view('frontend.pages.cart',compact('data','total','totalsale','cart'));
    }
 
 // cập nhật số lượng trong giỏ hàng
@@ -69,26 +74,36 @@ class CartController extends Controller
     }
 
 // thanh toán sản phẩm trong giỏ hàng
-    public function postpayment(Request $request)
+    public function postpayment(PaymentRequest $request)
     {
       $data = $request->all();
       $order  = Order::create($data);
       $carts  = Cart::content();
     foreach($carts as $cart)
       {
-      $order_detail             = new Order_detail;
+      $order_detail             = new OrderDetail;
       $order_detail->order_id   = $order->id;
       $order_detail->product_id = $cart->id;
       $order_detail->quantity   = $cart->qty;
       $order_detail->price      = $cart->price;
       $order_detail->save();
       }
-
-
-      
-
-      return redirect()->back();
+      $data = [
+        'name' => $request->name,
+        'email'=> $request->email,
+        'phone' => $request->phone,
+        'address' => $request->address,
+        'total_price' => $request->total_price,
+        'quantity' => $cart->qty
+      ];
+      Mail::send('email.ordercart',$data,function($msg) use($data){
+        $msg->from('khanhhokhanhho@gmail.com',"BooksOnline");
+        $msg->to($data['email'])->subject('Cảm ơn bạn đã đặt hàng!Chúng tôi sẽ liên hệ với bạn thời gian sớm nhất');
+      });
+      	Cart::destroy();
+        echo "<script>alert('Đơn hàng của bạn đã được gửi')
+        window.location ='".url('/')."';
+        </script>";
     }
-
 
 }
